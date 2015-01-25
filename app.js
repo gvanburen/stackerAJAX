@@ -49,19 +49,19 @@ var showQuestion = function(question) {
 	return result;
 };
 
-var showUser = function(user) {
+var showUser = function(answerer) {
 
 	var result = $('.templates .user').clone();
 
 	var userElem = result.find('.user-name a');
-	userElem.attr('href',user.link);
-	userElem.text(user.display_name);
+	userElem.attr('href',answerer.user.link);
+	userElem.text(answerer.user.display_name);
 
 	var reputation = result.find('.reputation');
-	reputation.text(user.reputation);
+	reputation.text(answerer.user.reputation);
 
 	var score = result.find('.score');
-	score.text(score);
+	score.text(answerer.score);
 
 	return result;
 };
@@ -136,6 +136,10 @@ var getInspired = function(tag) {
 		});
 		console.log(result);
 	})
+	.fail(function(jqXHR, error, errorThrown){
+		var errorElem = showError(error);
+		$('.search-results').append(errorElem);
+	});
 };
 
 
